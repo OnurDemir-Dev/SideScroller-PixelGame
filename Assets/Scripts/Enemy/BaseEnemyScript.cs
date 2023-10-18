@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class BaseEnemyScript : MonoBehaviour, IDamageable
 {
     public const string isplayerdetected = "isPlayerDetected";
@@ -23,11 +24,11 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
         }
     }
     protected bool isDeath = false;
+    [SerializeField]
     protected int health = 1;
 
     void Start()
     {
-        
         Enemy_Start();
     }
 
