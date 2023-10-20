@@ -206,8 +206,8 @@ MonoBehaviour:
   airControlSpeed: 0.8
   jumpForce: 1.5
   startTimeWaitAttack: 0.5
-  maxHealth: 4
-  currentHealth: 0
+  maxHealth: 6
+  _currentHealth: 0
   _isMale: 1
   facingRight: 1
   projectilePrefab: {fileID: 4771398298309921720, guid: e0223d1ed76cca54f87d7c80ac8ddc2f, type: 3}

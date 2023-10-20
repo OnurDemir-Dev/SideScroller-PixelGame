@@ -11,6 +11,7 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
 
     protected bool facingRight = true;
     protected bool _isPlayerDetected = false;
+    protected bool onceDetected = false;
     public bool IsPlayerDetected
     {
         get
@@ -23,7 +24,20 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
             animator.SetBool(isplayerdetected, value);
         }
     }
-    protected bool isDeath = false;
+    protected bool _isDeath = false;
+
+    public bool IsDeath
+    {
+        get
+        { 
+            return  _isDeath; 
+        }
+        set
+        {
+            _isDeath = value;
+        }
+    }
+
     [SerializeField]
     protected int health = 1;
 
@@ -34,7 +48,10 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
 
     void Update()
     {
-        Enemy_Update();
+        if (!PlayerScript.Player.IsDeath)
+        {
+            Enemy_Update(); 
+        }
     }
 
     protected virtual void Enemy_Start()
@@ -46,7 +63,8 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
     {
 
         IsPlayerDetected = CameraScript.IsObjectInCameraView(transform.position.x);
-        if(Camera.main.transform.position.x - CameraScript.screenBound.x - 0.5f > transform.position.x)
+        if(!onceDetected && IsPlayerDetected)onceDetected = true;
+        if (Camera.main.transform.position.x - CameraScript.screenBound.x - 0.5f > transform.position.x)
         {
             Destroy(gameObject);
         }
@@ -54,7 +72,7 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
 
     public virtual void TakeDamage(int damageValue)
     {
-        if (!isDeath)
+        if (!IsDeath && onceDetected)
         {
             Debug.Log("Take Damage: " + name);
             health -= damageValue; 
@@ -64,12 +82,12 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
     public virtual void Death()
     {
         Debug.Log("Death: " + name);
-        isDeath = true;
+        IsDeath = true;
     }
 
     protected void FlipToPlayer()
     {
-        if (!isDeath)
+        if (!IsDeath)
         {
             if(PlayerScript.Player != null)
             {
@@ -108,11 +126,5 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-    }
-
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Border")
-            Debug.Log("Trigger Worked");
     }
 }

@@ -22,7 +22,7 @@ public class WizardEnemyScript : BaseEnemyScript
     public override void TakeDamage(int damageValue)
     {
         base.TakeDamage(damageValue);
-        if (health <= 0 && !isDeath)
+        if (health <= 0 && !IsDeath)
         {
             Death();
         }
@@ -41,7 +41,6 @@ public class WizardEnemyScript : BaseEnemyScript
     public void Attack()
     {
         GameObject instProjectile = Instantiate(projectile, gameObject.transform.position, Quaternion.identity);
-        Debug.Log(GetNormalizeVectorForPlayer());
         instProjectile.GetComponent<ProjectileScript>().Direction = GetNormalizeVectorForPlayer();
     }
 

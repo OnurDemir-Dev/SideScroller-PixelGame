@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3205975067826238098}
   - component: {fileID: 5310496118776565454}
   - component: {fileID: 3050576637239572956}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WizardEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -31,7 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.18292981, y: -2.43, z: 0.04058277}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5247619704843663562}
   m_Father: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97c958cb55a73449a234081656f5fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDetectedLenght: 8
+  health: 1
   projectile: {fileID: 1573336056907095477, guid: 6b1a304a535dbe54887aafec7c7a9cc2, type: 3}
 --- !u!58 &3205975067826238098
 CircleCollider2D:
@@ -142,7 +142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5247619704843663562}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5698648569054206582}
   - component: {fileID: 8264695394517609210}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Charcter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

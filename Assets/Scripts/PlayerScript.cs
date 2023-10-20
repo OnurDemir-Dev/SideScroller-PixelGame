@@ -9,7 +9,6 @@ public class PlayerScript : MonoBehaviour, IDamageable
 {
     public static PlayerScript Player;
 
-
     [Range(0, .3f)][SerializeField] private float movementSmoothing = .05f;
     [SerializeField] private bool m_AirControl = false;
     [SerializeField] private LayerMask whatIsGround;
@@ -22,11 +21,33 @@ public class PlayerScript : MonoBehaviour, IDamageable
     [SerializeField] private float jumpForce = 1.5f;
     [SerializeField] private float startTimeWaitAttack;
 
-    public int maxHealth = 4, currentHealth = 0;
+    public int maxHealth = 6, _currentHealth = 0;
+    public int CurrentHealth
+    {
+        get { return _currentHealth; }
+        set 
+        {
+            if (value > maxHealth)
+            {
+                _currentHealth = maxHealth;
+            }
+            else if (value < 0)
+            {
+                _currentHealth = 0;
+            }
+            else
+            {
+                _currentHealth = value;
+                
+            }
+        }
+        
+    }
 
     [SerializeField] private bool _isMale = true;
     private bool _isAttacking = false;
     private bool _isGrounded;
+    private bool _isDeath = false;
     public bool IsMale
     {
         get
@@ -67,8 +88,20 @@ public class PlayerScript : MonoBehaviour, IDamageable
         }
     }
 
+    public bool IsDeath
+    {
+        get
+        {
+            return _isDeath;
+        }
+        set
+        {
+            _isDeath = value;
+            
+        }
+    }
+
     const float groundedRadius = .2f;
-    const float attackRadius = .4f;
     
     [HideInInspector]
     public bool facingRight = true;
@@ -76,8 +109,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 
     //Components
-    private Rigidbody2D rgbody2D;
-    private Animator playerAnimator;
+    public Rigidbody2D rgbody2D;
+    [HideInInspector]
+    public Animator playerAnimator;
     [SerializeField] private GameObject projectilePrefab;
 
 
@@ -86,7 +120,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         rgbody2D = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
 
-        currentHealth = maxHealth;
+        CurrentHealth = maxHealth;
 
         if(Player == null || Player != this)
         {
@@ -101,6 +135,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
+        if (IsDeath) return;
         IsGrounded = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
         if (colliders.Length > 0)
@@ -119,7 +154,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        if (IsDeath) return;
         Attack();
+        FallDamage();
     }
 
     public void Move(float move, bool jump)
@@ -128,9 +165,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
         {
             move = 0;
         }
+        playerAnimator.SetFloat("Speed", Mathf.Abs(move));
         Vector3 targetVelocity = new Vector2(move * moveSpeed * (!IsGrounded ? airControlSpeed : 1), rgbody2D.velocity.y);
         rgbody2D.velocity = Vector3.SmoothDamp(rgbody2D.velocity, targetVelocity, ref playerVelocity, movementSmoothing);
-        playerAnimator.SetFloat("Speed", Mathf.Abs(move));
 
         if(move < 0 && facingRight)
         {
@@ -143,13 +180,17 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
         if(jump && IsGrounded)
         {
-            IsGrounded = false;
-            IsAttacking = false;
-            playerAnimator.SetBool("isJumping", true);
-            rgbody2D.velocity += Vector2.up * jumpForce;
+            Jump((Vector2.up * jumpForce) + rgbody2D.velocity);
         }
     }
 
+    public void Jump(Vector2 _jumpdirection)
+    {
+        IsGrounded = false;
+        IsAttacking = false;
+        playerAnimator.SetBool("isJumping", true);
+        rgbody2D.velocity = _jumpdirection;
+    }
 
     private void Flip()
     {
@@ -178,7 +219,36 @@ public class PlayerScript : MonoBehaviour, IDamageable
     private void SpawnProjectile()
     {
         GameObject instGameobj = GameObject.Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        instGameobj.GetComponent<ProjectileScript>().Direction = facingRight ? Vector2.right : Vector2.left;
+        ProjectileScript tempProjectileScript = instGameobj.GetComponent<ProjectileScript>();
+        tempProjectileScript.Direction = facingRight ? Vector2.right : Vector2.left;
+        tempProjectileScript.SetProjectileStats();
+    }
+
+    public void TakeDamage(int damageValue)
+    {
+        CurrentHealth -= damageValue;
+        MainGameCanvasScript.mainGameCanvas.UpdateHealthBar();
+        if (CurrentHealth <= 0 && !IsDeath)
+        {
+            Death();
+        }
+    }
+
+    private void FallDamage()
+    {
+        if (Camera.main.transform.position.y - CameraScript.screenBound.y - 2f > transform.position.y)
+        {
+            TakeDamage(1);
+            transform.position = new Vector2(Camera.main.transform.position.x - 4f, 3.7f); 
+        }
+    }
+
+    public void Death()
+    {
+        IsDeath = true;
+        playerAnimator.SetTrigger("Death");
+        playerAnimator.SetBool("isDeath", IsDeath);
+        rgbody2D.velocity = Vector2.zero;
     }
 
     private void OnDrawGizmos()
@@ -187,13 +257,5 @@ public class PlayerScript : MonoBehaviour, IDamageable
         Gizmos.DrawWireSphere(groundCheck.position, groundedRadius);
     }
 
-    public void TakeDamage(int damageValue)
-    {
-        
-    }
-
-    public void Death()
-    {
-
-    }
+    
 }
