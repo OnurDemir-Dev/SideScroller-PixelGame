@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Animator))]
 public class BaseEnemyScript : MonoBehaviour, IDamageable
@@ -12,6 +13,12 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
     protected bool facingRight = true;
     protected bool _isPlayerDetected = false;
     protected bool onceDetected = false;
+
+    [Header("Events")]
+    [Space]
+
+    public UnityEvent OnDeathEvent;
+
     public bool IsPlayerDetected
     {
         get
@@ -82,12 +89,16 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
     public virtual void Death()
     {
         Debug.Log("Death: " + name);
+        if (OnDeathEvent != null)
+        {
+            OnDeathEvent.Invoke();
+        }
         IsDeath = true;
     }
 
     protected void FlipToPlayer()
     {
-        if (!IsDeath)
+        if (!IsDeath && onceDetected)
         {
             if(PlayerScript.Player != null)
             {

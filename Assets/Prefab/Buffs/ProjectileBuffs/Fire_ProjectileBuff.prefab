@@ -8,9 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 734671554468932587, guid: 15bebbe07f5feb645b9cfdf8e8363ee7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c56a1829b996fa543a52dc34c6cbda31, type: 3}
     - target: {fileID: 1137307005050608072, guid: 15bebbe07f5feb645b9cfdf8e8363ee7, type: 3}
       propertyPath: m_Name
-      value: ProjectileBuff
+      value: Fire_ProjectileBuff
       objectReference: {fileID: 0}
     - target: {fileID: 2693825020361034776, guid: 15bebbe07f5feb645b9cfdf8e8363ee7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50,6 +54,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2693825020361034776, guid: 15bebbe07f5feb645b9cfdf8e8363ee7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9120159530611364242, guid: 15bebbe07f5feb645b9cfdf8e8363ee7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9120159530611364242, guid: 15bebbe07f5feb645b9cfdf8e8363ee7, type: 3}
+      propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

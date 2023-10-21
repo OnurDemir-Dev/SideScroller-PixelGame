@@ -120,12 +120,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
         rgbody2D = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
 
-        CurrentHealth = maxHealth;
-
-        if(Player == null || Player != this)
-        {
-            Player = this;
-        }
+        if (CurrentHealth == 0)
+            CurrentHealth = maxHealth;
+        Player = this;
     }
 
     private void Start()
