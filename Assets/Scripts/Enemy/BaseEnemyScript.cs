@@ -8,7 +8,7 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
 {
     public const string isplayerdetected = "isPlayerDetected";
 
-    protected Animator animator;
+    public Animator animator;
 
     protected bool facingRight = true;
     protected bool _isPlayerDetected = false;
@@ -45,9 +45,8 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
         }
     }
 
-    [SerializeField]
-    protected int health = 1;
-
+    public int health = 1;
+    public string enemyName = "Enemy";
     void Start()
     {
         Enemy_Start();

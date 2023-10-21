@@ -48,7 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97c958cb55a73449a234081656f5fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  OnDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   health: 1
+  enemyName: Wizard Enemy
   projectile: {fileID: 1573336056907095477, guid: 6b1a304a535dbe54887aafec7c7a9cc2, type: 3}
 --- !u!58 &3205975067826238098
 CircleCollider2D:

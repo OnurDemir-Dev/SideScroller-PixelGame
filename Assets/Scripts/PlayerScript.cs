@@ -7,6 +7,11 @@ using UnityEngine.UIElements;
 
 public class PlayerScript : MonoBehaviour, IDamageable
 {
+#if UNITY_EDITOR
+    [SerializeField]
+    private bool isHackOn = false;
+#endif
+
     public static PlayerScript Player;
 
     [Range(0, .3f)][SerializeField] private float movementSmoothing = .05f;
@@ -128,6 +133,14 @@ public class PlayerScript : MonoBehaviour, IDamageable
     private void Start()
     {
         IsMale = true;
+
+#if UNITY_EDITOR
+        if (isHackOn)
+        {
+            maxHealth = 9999;
+            CurrentHealth = maxHealth; 
+        }
+#endif
     }
 
     private void FixedUpdate()
@@ -237,6 +250,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         {
             TakeDamage(1);
             transform.position = new Vector2(Camera.main.transform.position.x - 4f, 3.7f); 
+            rgbody2D.velocity = Vector2.zero;
         }
     }
 

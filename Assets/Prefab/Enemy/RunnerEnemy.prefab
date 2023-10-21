@@ -195,7 +195,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fadb74f8f2578846b78c80ba1bff3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  OnDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   health: 2
+  enemyName: Runner Enemy
+  damageValue: 1
   wallDetection: {fileID: 3206257835727096676}
   wallDetectionLayer:
     serializedVersion: 2

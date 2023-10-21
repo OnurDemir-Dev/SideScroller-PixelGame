@@ -9,8 +9,11 @@ public class TrampolineScript : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            Vector2 tempVelocity = Vector3.Normalize(transform.rotation * Vector2.up);
-            PlayerScript.Player.Jump(tempVelocity * jumpForce);
+            if (!PlayerScript.Player.IsDeath)
+            {
+                Vector2 tempVelocity = Vector3.Normalize(transform.rotation * Vector2.up);
+                PlayerScript.Player.Jump(tempVelocity * jumpForce); 
+            }
         }
     }
 }
