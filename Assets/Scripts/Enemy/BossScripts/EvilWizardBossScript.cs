@@ -13,6 +13,8 @@ public class EvilWizardBossScript : BaseEnemyScript
 
     BossStates currentState = BossStates.Idle;
 
+    const int meleedamage = 1;
+
     [SerializeField]
     private float bossSpeed = 5f;
 
@@ -46,6 +48,8 @@ public class EvilWizardBossScript : BaseEnemyScript
 
     [SerializeField]
     private GameObject evilWizardProjectile;
+    [SerializeField]
+    private Transform meleeAttackTransform;
 
     protected override void Enemy_Start()
     {
@@ -132,7 +136,13 @@ public class EvilWizardBossScript : BaseEnemyScript
 
     public void MeleeAttack()
     {
-        
+        if (Physics2D.OverlapCircle(meleeAttackTransform.position, meleeAttackTransform.localScale.x, (int)Mathf.Pow(2f, LayerMask.NameToLayer("Player"))))
+        {
+            if (PlayerScript.Player)
+            {
+                PlayerScript.Player.TakeDamage(meleedamage);
+            }
+        }
     }
 
     public void RangedAttack()
@@ -183,7 +193,7 @@ public class EvilWizardBossScript : BaseEnemyScript
             {
                 spawnBuffTime = 0;
                 float randomX = Random.Range(buffSpawnTransform.position.x - bossXlimit, buffSpawnTransform.position.x + bossXlimit);
-                Instantiate(healBuffPrefab, new Vector2(randomX, buffSpawnTransform.position.y), Quaternion.identity);
+                Instantiate(healBuffPrefab, Vector2.right * randomX + Vector2.up * buffSpawnTransform.position.y, Quaternion.identity);
             }
         }
     }
@@ -191,11 +201,5 @@ public class EvilWizardBossScript : BaseEnemyScript
     private bool ControlLimitX(float targetX)
     {
         return targetX > transform.parent.position.x - bossXlimit && targetX < transform.parent.position.x + bossXlimit;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.parent.position, new Vector3(CameraScript.screenBound.x * 2 - 1f, CameraScript.screenBound.y * 2 ,20f));
     }
 }

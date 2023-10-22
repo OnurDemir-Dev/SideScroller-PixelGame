@@ -11,8 +11,12 @@ public class ProjectileScript : MonoBehaviour
 
     [SerializeField]
     private SpriteRenderer spriteRenderer;
+    [Header("Sounds")]
+    [SerializeField]
+    private AudioClip sfxSound;
 
 
+    [Space]
     [SerializeField] private string targetTag;
     public float speed = 8f;
     public float destroyTime = 2f;
@@ -42,6 +46,8 @@ public class ProjectileScript : MonoBehaviour
 
         rgBody2D = GetComponent<Rigidbody2D>();
 
+        AudioManager.Instance.PlaySound(sfxSound);
+
         Destroy(gameObject, destroyTime);
     }
 
@@ -58,6 +64,7 @@ public class ProjectileScript : MonoBehaviour
 
             rgBody2D.velocity = speed * _direction * ProjectileStats.speed;
             PlayerScript.Player.playerAnimator.speed = ProjectileStats.playerSpeed;
+            sfxSound = ProjectileStats.audioSFX;
         }
     }
 
@@ -72,6 +79,7 @@ public class ProjectileScript : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+
         }
     }
 }

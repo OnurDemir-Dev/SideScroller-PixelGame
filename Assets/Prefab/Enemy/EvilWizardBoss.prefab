@@ -118,6 +118,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 907239703984435462}
+  - {fileID: 2830433252827001242}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2492500209041179906
@@ -148,6 +149,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  getHitSfx: {fileID: 8300000, guid: 20bd5163cfe3e05449831e47a6fd13ec, type: 3}
   health: 40
   enemyName: Evil Wizard
   bossSpeed: 5
@@ -158,6 +160,7 @@ MonoBehaviour:
   - {fileID: 0}
   wizardPrefab: {fileID: 1820657341052508002, guid: 1ae17d362185cd04e85a4caa9d5d9c73, type: 3}
   evilWizardProjectile: {fileID: 402537295505430688, guid: 8de58047d568b7243b4f91a6cf1b134d, type: 3}
+  meleeAttackTransform: {fileID: 2830433252827001242}
 --- !u!70 &4099156713915542080
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -241,3 +244,34 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &7910619601711970680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2830433252827001242}
+  m_Layer: 8
+  m_Name: AttackTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2830433252827001242
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7910619601711970680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.93, y: 0.35, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 7277493435952571182}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

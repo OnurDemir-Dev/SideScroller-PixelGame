@@ -9,6 +9,16 @@ public class Level2Manager : MonoBehaviour
     private GameObject[] wizardTrambolines = new GameObject[2];
     private int threeWizardCount = 0;
 
+    [Space]
+    [Header("Sound")]
+    [SerializeField]
+    private AudioClip levelMusic;
+
+    private void Start()
+    {
+        AudioManager.Instance.PlayMusic(levelMusic);
+    }
+
     public void Event_ThreeWizard()
     {
         threeWizardCount++;

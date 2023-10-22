@@ -199,6 +199,7 @@ MonoBehaviour:
   OnDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  getHitSfx: {fileID: 8300000, guid: 20bd5163cfe3e05449831e47a6fd13ec, type: 3}
   health: 2
   enemyName: Runner Enemy
   damageValue: 1

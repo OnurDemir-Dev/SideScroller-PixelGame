@@ -3,7 +3,9 @@ guid: 06f0fcb2828988945b678e038d727d52
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - animator: {instanceID: 0}
+  - getHitSfx: {fileID: 8300000, guid: 20bd5163cfe3e05449831e47a6fd13ec, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

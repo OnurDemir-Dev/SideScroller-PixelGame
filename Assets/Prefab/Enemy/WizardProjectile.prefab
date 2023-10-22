@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3485809213044603308, guid: e0223d1ed76cca54f87d7c80ac8ddc2f, type: 3}
+      propertyPath: sfxSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1639f8c129cea1549b4da8f93895efd9, type: 3}
+    - target: {fileID: 3485809213044603308, guid: e0223d1ed76cca54f87d7c80ac8ddc2f, type: 3}
       propertyPath: targetTag
       value: Player
       objectReference: {fileID: 0}

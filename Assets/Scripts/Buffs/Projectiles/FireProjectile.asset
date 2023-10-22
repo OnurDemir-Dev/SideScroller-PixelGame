@@ -17,3 +17,4 @@ MonoBehaviour:
   speed: 2
   playerSpeed: 1
   onceDestroy: 1
+  audioSFX: {fileID: 8300000, guid: 1639f8c129cea1549b4da8f93895efd9, type: 3}

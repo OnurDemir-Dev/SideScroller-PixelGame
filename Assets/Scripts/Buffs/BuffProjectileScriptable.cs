@@ -10,4 +10,6 @@ public class BuffProjectileScriptable : ScriptableObject
     public float playerSpeed = 1;
 
     public bool onceDestroy = true;
+
+    public AudioClip audioSFX;
 }

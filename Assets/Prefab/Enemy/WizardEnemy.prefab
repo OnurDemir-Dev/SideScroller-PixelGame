@@ -52,6 +52,7 @@ MonoBehaviour:
   OnDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  getHitSfx: {fileID: 8300000, guid: 20bd5163cfe3e05449831e47a6fd13ec, type: 3}
   health: 1
   enemyName: Wizard Enemy
   projectile: {fileID: 1573336056907095477, guid: 6b1a304a535dbe54887aafec7c7a9cc2, type: 3}

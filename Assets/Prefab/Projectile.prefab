@@ -205,6 +205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultProjectile: {fileID: 11400000, guid: d701344f7b89d4d4084c042999d492d6, type: 2}
   spriteRenderer: {fileID: 9159745372971073526}
+  sfxSound: {fileID: 8300000, guid: 0855fa1ec3cd0ac4a8fbe25585f56aba, type: 3}
+  hitSfxSound: {fileID: 8300000, guid: 20bd5163cfe3e05449831e47a6fd13ec, type: 3}
   targetTag: Enemy
   speed: 8
   destroyTime: 3

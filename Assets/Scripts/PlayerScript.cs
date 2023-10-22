@@ -15,7 +15,6 @@ public class PlayerScript : MonoBehaviour, IDamageable
     public static PlayerScript Player;
 
     [Range(0, .3f)][SerializeField] private float movementSmoothing = .05f;
-    [SerializeField] private bool m_AirControl = false;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Transform groundCheck;
 
@@ -53,6 +52,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     private bool _isAttacking = false;
     private bool _isGrounded;
     private bool _isDeath = false;
+    private bool _isJump = false;
     public bool IsMale
     {
         get
@@ -102,7 +102,21 @@ public class PlayerScript : MonoBehaviour, IDamageable
         set
         {
             _isDeath = value;
-            
+            MainGameCanvasScript.isGameOver = value;
+            MainGameCanvasScript.mainGameCanvas.ToggleGameOverUI();
+        }
+    }
+
+    public bool IsJump
+    {
+        get
+        {
+            return _isJump;
+        }
+        set 
+        {
+            _isJump = value;
+            playerAnimator.SetBool("isJumping", _isJump);
         }
     }
 
@@ -118,6 +132,14 @@ public class PlayerScript : MonoBehaviour, IDamageable
     [HideInInspector]
     public Animator playerAnimator;
     [SerializeField] private GameObject projectilePrefab;
+
+    //Sounds
+    [Header("AudioClips")]
+    [Space]
+    [SerializeField]
+    private AudioClip jumpSound;
+    [SerializeField]
+    private AudioClip walkSound;
 
 
     private void Awake()
@@ -145,7 +167,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        if (IsDeath) return;
+        if (IsDeath || Time.timeScale == 0) return;
         IsGrounded = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
         if (colliders.Length > 0)
@@ -164,7 +186,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (IsDeath) return;
+        if (IsDeath || Time.timeScale == 0) return;
         Attack();
         FallDamage();
     }
@@ -196,10 +218,16 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     public void Jump(Vector2 _jumpdirection)
     {
+        Debug.Log("Jump");
+        if (IsGrounded)
+            AudioManager.Instance.PlaySound(jumpSound);
+
+        IsJump = true;
         IsGrounded = false;
         IsAttacking = false;
-        playerAnimator.SetBool("isJumping", true);
+        
         rgbody2D.velocity = _jumpdirection;
+        
     }
 
     private void Flip()
@@ -260,6 +288,11 @@ public class PlayerScript : MonoBehaviour, IDamageable
         playerAnimator.SetTrigger("Death");
         playerAnimator.SetBool("isDeath", IsDeath);
         rgbody2D.velocity = Vector2.zero;
+    }
+
+    public void PlayWalkSound()
+    {
+        AudioManager.Instance.PlaySound(walkSound);
     }
 
     private void OnDrawGizmos()

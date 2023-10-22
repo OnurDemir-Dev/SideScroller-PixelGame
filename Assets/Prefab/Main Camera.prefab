@@ -263,5 +263,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boundLObj: {fileID: 8387655365318806854}
   boundRObj: {fileID: 3275320192605816794}
-  smoothTime: 10
+  smoothTime: 5
   isStationary: 0

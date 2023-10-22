@@ -19,6 +19,10 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
 
     public UnityEvent OnDeathEvent;
 
+    [Header("Sounds")]
+    [SerializeField]
+    private AudioClip getHitSfx;
+
     public bool IsPlayerDetected
     {
         get
@@ -28,7 +32,9 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
         set
         { 
             _isPlayerDetected = value;
-            animator.SetBool(isplayerdetected, value);
+
+            animator.SetBool(isplayerdetected, value); 
+
         }
     }
     protected bool _isDeath = false;
@@ -80,6 +86,7 @@ public class BaseEnemyScript : MonoBehaviour, IDamageable
     {
         if (!IsDeath && onceDetected)
         {
+            AudioManager.Instance.PlaySound(getHitSfx);
             Debug.Log("Take Damage: " + name);
             health -= damageValue; 
         }
